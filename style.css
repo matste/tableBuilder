@@ -67,9 +67,11 @@ body{
   margin: 3px 3px;
   z-index: 1;
   position: relative;
+  transition: 0.3s all;
+  transform: rotate(0deg);
 }
 
-.fork2 {
+.plate {
   width: 300px;
   height: 300px;
   background-image: url("./images/goldplate.png");
@@ -79,6 +81,9 @@ body{
   margin: 0px 3px 0px -15 0px;
   z-index: 1;
   position: relative;
+  transition: 0.3s all;
+  transform: rotate(0deg);
+
 }
 
 .active {
