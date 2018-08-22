@@ -1,0 +1,96 @@
+body{
+  font-size: 12px;
+  background-color: #efefef;
+  margin: 0em 0em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.canvas {
+  height: 600px;
+  width: 1200px;
+  background-image: url("./images/whiteLinen.jpg");
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  overflow: hidden;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.menu {
+  background-color: black;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 1200px;
+}
+
+.menu ul {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0em 0em;
+  padding: 0em 0em;
+  cursor: pointer;
+}
+
+.menu ul li {
+  margin: 0em 0em;
+  padding: 1em 1em;
+  background-color: black;
+  border: 1px solid #444444;
+  color: #dfdfdf;
+  font-family: arial;
+  font-size: 1.3em;
+  list-style-type: none;
+}
+
+.menu ul li:hover {
+  background-color: #444444;
+}
+
+.fork {
+  width: 300px;
+  height: 300px;
+  background-image: url("./images/forkexample.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 2px solid transparent;
+  margin: 3px 3px;
+  z-index: 1;
+  position: relative;
+}
+
+.fork2 {
+  width: 300px;
+  height: 300px;
+  background-image: url("./images/goldplate.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 2px solid transparent;
+  margin: 0px 3px 0px -15 0px;
+  z-index: 1;
+  position: relative;
+}
+
+.active {
+  border: 2px solid red !important;
+}
+
+.addItem{
+  background-color: #006600 !important;}
+.addItem:hover{
+  background-color: #00aa00 !important;}
+
+.removeItem{
+  background-color: #660000 !important;}
+.removeItem:hover{
+  background-color: #aa0000 !important;}
