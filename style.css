@@ -82,8 +82,6 @@ body{
   z-index: 1;
   position: relative;
   transition: 0.3s all;
-  transform: rotate(0deg);
-
 }
 
 .active {
