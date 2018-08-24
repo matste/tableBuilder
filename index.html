@@ -21,6 +21,35 @@ Developed on Aug 21, 2018 by Stephan Mattalo
 
     <script type="text/javascript">
 
+/*
+    window.onload = addListeners;
+
+    function addListeners(){
+        document.getElementById('dxy').addEventListener('mousedown', mouseDown, false);
+        window.addEventListener('mouseup', mouseUp, false);
+
+    }
+
+    function mouseUp()
+    {
+        window.removeEventListener('mousemove', divMove, true);
+    }
+
+    function mouseDown(e){
+      window.addEventListener('mousemove', divMove, true);
+    }
+
+    function divMove(e){
+        var div = document.getElementById('dxy');
+      div.style.position = 'absolute';
+      div.style.top = e.clientY + 'px';
+      div.style.left = e.clientX + 'px';
+    }​
+    */
+
+
+
+
       //eventually need better formula here to grow at linear proportions, not exponential
       function grow() {
         if (!document.querySelector('.active')){
@@ -131,7 +160,7 @@ Developed on Aug 21, 2018 by Stephan Mattalo
 
       //function to rotate the selected item by 90 degrees
       function rotate() {
-        degrees = (degrees + 15) % 360;
+        degrees = (degrees + 90) % 360; //rotate 90 degrees clockwise. Reset to 0 when 360 is met to avoid continual increase in degrees
 
         $(".active").css({
           transform: "rotate(" + degrees + "deg)"
