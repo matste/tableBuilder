@@ -2,6 +2,7 @@
 
 <!--
 Developed on Aug 21, 2018 by Stephan Mattalo
+Purpose: Allow customers to add and remove product to create place-settings in real-time.
 -->
 
 <html lang="en" dir="ltr">
@@ -16,41 +17,14 @@ Developed on Aug 21, 2018 by Stephan Mattalo
   crossorigin="anonymous"></script>
 
 
-
-<!-- CODE FOR MENU FUNCTIONALITY -->
-
     <script type="text/javascript">
 
-/*
-    window.onload = addListeners;
+      function makeActive(x) {
+        $('.active').removeClass('active')
+        $('#' + x).addClass('active');
+        console.log(x +' has been selected.');
+      }
 
-    function addListeners(){
-        document.getElementById('dxy').addEventListener('mousedown', mouseDown, false);
-        window.addEventListener('mouseup', mouseUp, false);
-
-    }
-
-    function mouseUp()
-    {
-        window.removeEventListener('mousemove', divMove, true);
-    }
-
-    function mouseDown(e){
-      window.addEventListener('mousemove', divMove, true);
-    }
-
-    function divMove(e){
-        var div = document.getElementById('dxy');
-      div.style.position = 'absolute';
-      div.style.top = e.clientY + 'px';
-      div.style.left = e.clientX + 'px';
-    }​
-    */
-
-
-
-
-      //eventually need better formula here to grow at linear proportions, not exponential
       function grow() {
         if (!document.querySelector('.active')){
           console.log('Error: no item has been selected.');
@@ -73,7 +47,7 @@ Developed on Aug 21, 2018 by Stephan Mattalo
           console.log('Error: no item has been selected.');
           alert('You must first select an item from the table to decrease it\'s size');
         }
-          else{
+          else {
           var x = document.querySelector('.active').id
           var currentWidth = document.getElementById(x).offsetWidth;
           currentWidth /= 1.1;
@@ -83,30 +57,18 @@ Developed on Aug 21, 2018 by Stephan Mattalo
           document.getElementById(x).style.height = currentHeight + "px";
           console.log(x + ' size has been decreased.');
         }
-
       }
 
-      //when making object active, must first make all current active objects deactive
-      function makeActive(x) {
-        $('.active').removeClass('active') //remove active from all objects before making new object active
-        $('#' + x).addClass('active'); // make specific object clicked active
-        console.log(x +' has been selected.');
-      }
-
-      //makes all objects deactive
       function clearSelection(x) {
         $('.active').removeClass('active')
         console.log('All items have been de-selected.');
       }
 
-      //remove the active element from the Table
       function remove() {
-
         if (!document.querySelector('.active')){
           console.log('No items are selected.');
           alert('You must first select an item from the table to be removed.');
         }
-
         else{
           var x = document.querySelector('.active').id;
           document.getElementById(x).remove();
@@ -114,12 +76,6 @@ Developed on Aug 21, 2018 by Stephan Mattalo
           console.log(x + ' has been removed from the table');
         }
       }
-
-
-      /*Function to move the item up a layer
-      There will be 10 layers to work with, 1 being the bottom and 10 being the top.
-      When the z-index change, the layer number will flash quickly in the middle of the screen
-      to let the user know what layer the item changed to.*/
 
       function upLayer() {
         var x = $('.active').css('z-index');
@@ -138,7 +94,6 @@ Developed on Aug 21, 2018 by Stephan Mattalo
         }
       }
 
-
       function downLayer() {
         var x = $('.active').css('z-index');
         x = Number(x);
@@ -156,26 +111,61 @@ Developed on Aug 21, 2018 by Stephan Mattalo
         }
       }
 
+      //Rotate product 90 deg clockwise. Reset to 0 when meets or exceeds 360 deg.
       var degrees = 0;
-
-      //function to rotate the selected item by 90 degrees
       function rotate() {
-        degrees = (degrees + 90) % 360; //rotate 90 degrees clockwise. Reset to 0 when 360 is met to avoid continual increase in degrees
-
+        degrees = (degrees + 90) % 360;
         $(".active").css({
           transform: "rotate(" + degrees + "deg)"
         });
       }
 
+      function moveUp(){
+        var y = document.querySelector('.active').id;
+        var elem = document.getElementById(y);
+        var topStart = window.getComputedStyle(elem).getPropertyValue("top");
+        var newPosition = parseInt(topStart.substring(0, topStart.length - 2)) - 15;
+        elem.style.top = newPosition + "px";
+      }
 
-  function changeGold(){
-    document.getElementById("fork1").style.backgroundImage = "url('./images/goldcutlery.png')";}
+      function moveDown(){
+        var y = document.querySelector('.active').id;
+        var elem = document.getElementById(y);
+        var topStart = window.getComputedStyle(elem).getPropertyValue("top");
+        var newPosition = parseInt(topStart.substring(0, topStart.length - 2)) + 15;
+        elem.style.top = newPosition + "px";
+      }
 
-    function changeSilver(){
-      document.getElementById("fork1").style.backgroundImage = "url('./images/forkexample.png')";}
+      function moveLeft(){
+        var y = document.querySelector('.active').id;
+        var elem = document.getElementById(y);
+        var topStart = window.getComputedStyle(elem).getPropertyValue("left");
+        var newPosition = parseInt(topStart.substring(0, topStart.length - 2)) - 15;
+        elem.style.left = newPosition + "px";
+      }
 
+      function moveRight(){
+        var y = document.querySelector('.active').id;
+        var elem = document.getElementById(y);
+        var topStart = window.getComputedStyle(elem).getPropertyValue("left");
+        var newPosition = parseInt(topStart.substring(0, topStart.length - 2)) + 15;
+        elem.style.left = newPosition + "px";
+      }
+
+
+
+
+//remove this functions later, since we need a class/object for creation of future objects.
+// functions above will change to class methods during conversion to classes
+
+      function changeGold(){
+        document.getElementById("fork1").style.backgroundImage = "url('./images/goldcutlery.png')";}
+
+      function changeSilver(){
+        document.getElementById("fork1").style.backgroundImage = "url('./images/forkexample.png')";}
 
     </script>
+
   </head>
   <body>
 
@@ -189,15 +179,22 @@ Developed on Aug 21, 2018 by Stephan Mattalo
 
       <div class="menu">
         <ul>
-          <li class="addItem"><i class="fas fa-plus-square"></i> Add Item</li>
           <li onClick="clearSelection();">Unselect All</li>
           <li onClick="grow()">(+) Grow</li>
           <li onClick="shrink()">(-) Shrink</li>
           <li onClick="upLayer()">Layer - Up</li>
           <li onClick="downLayer()">Layer - Down</li>
-          <li onClick="remove();" class="removeItem"><i class="fas fa-trash-alt 3x"></i> Remove Item</li>
           <li onClick="rotate();">Rotate 90 deg.</li>
+          <li onClick="moveUp();">Up</li>
+          <li onClick="moveDown();">Down</li>
+          <li onClick="moveLeft();">Left</li>
+          <li onClick="moveRight();">Right</li>
+          <li onClick="remove();" class="removeItem"><i class="fas fa-trash-alt 3x"></i> Remove Item</li>
         </ul>
+      </div>
+
+      <div class="productListing">
+
       </div>
 
       <div>
