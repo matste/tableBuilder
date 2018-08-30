@@ -1,208 +1,82 @@
 <!DOCTYPE html>
 
-<!--
-Developed on Aug 21, 2018 by Stephan Mattalo
--->
-
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>ERG - Table Builder</title>
     <link href="./style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="./index.js"></script>
 
-
-
-<!-- CODE FOR MENU FUNCTIONALITY -->
-
-    <script type="text/javascript">
-
-/*
-    window.onload = addListeners;
-
-    function addListeners(){
-        document.getElementById('dxy').addEventListener('mousedown', mouseDown, false);
-        window.addEventListener('mouseup', mouseUp, false);
-
-    }
-
-    function mouseUp()
-    {
-        window.removeEventListener('mousemove', divMove, true);
-    }
-
-    function mouseDown(e){
-      window.addEventListener('mousemove', divMove, true);
-    }
-
-    function divMove(e){
-        var div = document.getElementById('dxy');
-      div.style.position = 'absolute';
-      div.style.top = e.clientY + 'px';
-      div.style.left = e.clientX + 'px';
-    }​
-    */
-
-
-
-
-      //eventually need better formula here to grow at linear proportions, not exponential
-      function grow() {
-        if (!document.querySelector('.active')){
-          console.log('Error: no item has been selected.');
-          alert('You must first select an item from the table to increase it\'s size');
-        }
-        else{
-          var x = document.querySelector('.active').id
-          var currentWidth = document.getElementById(x).offsetWidth;
-          currentWidth *= 1.1;
-          document.getElementById(x).style.width = currentWidth + "px";
-          var currentHeight = document.getElementById(x).offsetHeight;
-          currentHeight *= 1.1;
-          document.getElementById(x).style.height = currentHeight + "px";
-          console.log(x + ' size has been increased.');
-        }
-      }
-
-      function shrink() {
-        if (!document.querySelector('.active')){
-          console.log('Error: no item has been selected.');
-          alert('You must first select an item from the table to decrease it\'s size');
-        }
-          else{
-          var x = document.querySelector('.active').id
-          var currentWidth = document.getElementById(x).offsetWidth;
-          currentWidth /= 1.1;
-          document.getElementById(x).style.width = currentWidth + "px";
-          var currentHeight = document.getElementById(x).offsetHeight;
-          currentHeight /= 1.1;
-          document.getElementById(x).style.height = currentHeight + "px";
-          console.log(x + ' size has been decreased.');
-        }
-
-      }
-
-      //when making object active, must first make all current active objects deactive
-      function makeActive(x) {
-        $('.active').removeClass('active') //remove active from all objects before making new object active
-        $('#' + x).addClass('active'); // make specific object clicked active
-        console.log(x +' has been selected.');
-      }
-
-      //makes all objects deactive
-      function clearSelection(x) {
-        $('.active').removeClass('active')
-        console.log('All items have been de-selected.');
-      }
-
-      //remove the active element from the Table
-      function remove() {
-
-        if (!document.querySelector('.active')){
-          console.log('No items are selected.');
-          alert('You must first select an item from the table to be removed.');
-        }
-
-        else{
-          var x = document.querySelector('.active').id;
-          document.getElementById(x).remove();
-          $('.active').removeClass('active') // makes sure there are no items active anymore
-          console.log(x + ' has been removed from the table');
-        }
-      }
-
-
-      /*Function to move the item up a layer
-      There will be 10 layers to work with, 1 being the bottom and 10 being the top.
-      When the z-index change, the layer number will flash quickly in the middle of the screen
-      to let the user know what layer the item changed to.*/
-
-      function upLayer() {
-        var x = $('.active').css('z-index');
-        x = Number(x);
-
-        if (x >= 10){
-          console.log('You are on the top layer.');
-          alert('You are on the top layer');
-          x = 10;
-        }
-        else{
-          x = x + 1;
-          y = document.querySelector('.active').id;
-          document.getElementById(y).style.zIndex = x.toString();
-          console.log('Layer has been increased to ' + x);
-        }
-      }
-
-
-      function downLayer() {
-        var x = $('.active').css('z-index');
-        x = Number(x);
-
-        if (x <= 1){
-          console.log('You are on the bottom layer.');
-          alert('You are on the bottom layer');
-          x = 1;
-        }
-        else{
-          x = x - 1;
-          y = document.querySelector('.active').id;
-          document.getElementById(y).style.zIndex = x.toString();
-          console.log('Layer has been decreased to ' + x);
-        }
-      }
-
-      var degrees = 0;
-
-      //function to rotate the selected item by 90 degrees
-      function rotate() {
-        degrees = (degrees + 90) % 360; //rotate 90 degrees clockwise. Reset to 0 when 360 is met to avoid continual increase in degrees
-
-        $(".active").css({
-          transform: "rotate(" + degrees + "deg)"
-        });
-      }
-
-
-  function changeGold(){
-    document.getElementById("fork1").style.backgroundImage = "url('./images/goldcutlery.png')";}
-
-    function changeSilver(){
-      document.getElementById("fork1").style.backgroundImage = "url('./images/forkexample.png')";}
-
-
-    </script>
   </head>
   <body>
 
   <div class="container">
 
-      <div class="canvas">
-        <!--<span><strong>Event Rental Group - Table Builder (Beta) 1.0.0</strong></span>-->
-        <div id="fork1" class='fork' onClick="makeActive($(this).attr('id'));"></div>
-        <div id="plate1" class='plate' onClick="makeActive($(this).attr('id'));"></div>
+      <div class="canvas" id="canvas">
+        <!--DIVS WILL BE ADDED IN HERE THROUGH JS-->
       </div>
 
       <div class="menu">
         <ul>
-          <li class="addItem"><i class="fas fa-plus-square"></i> Add Item</li>
           <li onClick="clearSelection();">Unselect All</li>
           <li onClick="grow()">(+) Grow</li>
           <li onClick="shrink()">(-) Shrink</li>
           <li onClick="upLayer()">Layer - Up</li>
           <li onClick="downLayer()">Layer - Down</li>
-          <li onClick="remove();" class="removeItem"><i class="fas fa-trash-alt 3x"></i> Remove Item</li>
           <li onClick="rotate();">Rotate 90 deg.</li>
+          <li onClick="remove();" class="removeItem"><i class="fas fa-trash-alt 3x"></i> Remove Item</li>
         </ul>
       </div>
 
+      <div class="products">
+
+        <div class="productColumn">
+          <ul>
+            <li class="category">Linens</li>
+            <li>Black</li>
+            <li>Black</li>
+            <li>Black</li>
+            <li>Black</li>
+            <li>Black</li>
+
+          </ul>
+        </div>
+
+        <div class="productColumn">
+          <ul>
+            <li class="category">Chargers</li>
+            <li onClick="newItem(300, 300, 'goldplate.png');">Gold Charger</li>
+            <li onClick="newItem(300, 300, 'silvercharger.png');">Silver Charger</li>
+
+          </ul>
+        </div>
+
+        <div class="productColumn">
+          <ul>
+            <li class="category">Tableware</li>
+          </ul>
+        </div>
+
+        <div class="productColumn">
+          <ul>
+            <li class="category">Flatware</li>
+            <li onClick="newItem(300, 300, 'goldcutlery.png');">Gold Cutlery</li>
+            <li onClick="newItem(300, 300, 'cut1.png');">Sample 1</li>
+            <li onClick="newItem(300, 300, 'cut2.png');">Sample 2</li>
+
+          </ul>
+        </div>
+      </div>
+
+
+
       <div>
-        <p onClick="changeGold();">Gold Cutlery</p>
-        <p onClick="changeSilver();">Silver Cutlery</p>
+        <p onClick="newItem(300, 300, 'goldcutlery.png');">Test new item</p>
+        <p onClick="newItem(300, 300, 'goldplate.png');">Test new item</p>
+
+
       </div>
 
 
