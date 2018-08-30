@@ -21,8 +21,10 @@ body{
   display: flex;
   flex-direction:row;
   align-items: center;
+  position:relative; /* had to make this relative to hide tabletop item overflow */
   justify-content: flex-start;
 }
+
 
 .menu {
   background-color: black;
@@ -64,7 +66,9 @@ body{
   background-repeat: no-repeat;
   border: 2px solid transparent;
   z-index: 1;
-  position: relative;
+  position: absolute;
+  left:50px;
+  top:50px;
   transition: 0.3s all;
 }
 
@@ -76,7 +80,9 @@ body{
   background-repeat: no-repeat;
   border: 2px solid transparent;
   z-index: 1;
-  position: relative;
+  position: absolute;
+  left:200px;
+  top: 200px;
   transition: 0.3s all;
 }
 
