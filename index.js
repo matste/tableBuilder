@@ -24,6 +24,7 @@ function newItem (w, h, imageLink) {
   div.setAttribute("onClick", "makeActive($(this).attr('id'))");
   div.setAttribute("id", uniqueId);
   div.setAttribute("class", "fork");
+  div.setAttribute("onmousedown", "dragElement(document.getElementById($(this).attr('id')));");
 
   document.getElementById("canvas").appendChild(div); // add inside canvas
   counter += 1; // increase counter to ensure unique id
@@ -31,13 +32,14 @@ function newItem (w, h, imageLink) {
 }
 
 
-
+function testing() {
+  console.log("test");
+}
 
 
   function makeActive(x) {
     $('.active').removeClass('active')
     $('#' + x).addClass('active');
-    console.log(x +' has been selected.');
   }
 
   function grow() {
@@ -53,7 +55,6 @@ function newItem (w, h, imageLink) {
       var currentHeight = document.getElementById(x).offsetHeight;
       currentHeight *= 1.1;
       document.getElementById(x).style.height = currentHeight + "px";
-      console.log(x + ' size has been increased.');
     }
   }
 
@@ -70,14 +71,12 @@ function newItem (w, h, imageLink) {
       var currentHeight = document.getElementById(x).offsetHeight;
       currentHeight /= 1.1;
       document.getElementById(x).style.height = currentHeight + "px";
-      console.log(x + ' size has been decreased.');
     }
 
   }
 
   function clearSelection(x) {
     $('.active').removeClass('active')
-    console.log('All items have been de-selected.');
   }
 
   function remove() {
@@ -90,7 +89,6 @@ function newItem (w, h, imageLink) {
       var x = document.querySelector('.active').id;
       document.getElementById(x).remove();
       $('.active').removeClass('active')
-      console.log(x + ' has been removed from the table');
     }
   }
 
@@ -107,7 +105,6 @@ function newItem (w, h, imageLink) {
       x = x + 1;
       y = document.querySelector('.active').id;
       document.getElementById(y).style.zIndex = x.toString();
-      console.log('Layer has been increased to ' + x);
     }
   }
 
@@ -137,8 +134,43 @@ function newItem (w, h, imageLink) {
     });
   }
 
-  function changeGold(){
-    document.getElementById("fork1").style.backgroundImage = "url('./images/goldcutlery.png')";}
 
-  function changeSilver(){
-    document.getElementById("fork1").style.backgroundImage = "url('./images/forkexample.png')";}
+//Make the DIV element draggagle:
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    elmnt.onmousedown = dragMouseDown;
+
+
+
+  function dragMouseDown(e) {
+    console.log("drag mouse Down");
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
