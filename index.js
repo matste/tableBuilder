@@ -174,3 +174,18 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+function changelinen() {
+  var div = document.getElementById('canvas');
+  div.style.backgroundImage = "url('./images/blush_linen.png')";
+}
+
+function changelinen2() {
+  var div = document.getElementById('canvas');
+  div.style.backgroundImage = "url('./images/whiteLinen.jpg')";
+}
+
+function changelinen3() {
+  var div = document.getElementById('canvas');
+  div.style.backgroundImage = "url('./images/greylinen.jpg')";
+}
