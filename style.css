@@ -103,3 +103,36 @@ body{
   background-color: #660000 !important;}
 .removeItem:hover{
   background-color: #aa0000 !important;}
+
+  .productListing {
+    display: flex;
+    width: 1200px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 0px;
+    margin: 0px 0px;
+  }
+
+.productListing ul {
+  width: 25%;
+  margin: 0px 0px;
+  padding: 0px 0px;
+
+}
+
+  .productListing ul li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style-type: none;
+    background-color: #FAD7A0;
+    height: 40px;
+    padding: 0px 20px;
+    color: #000;
+    font-family: arial;
+    font-size: 1.5em;
+  }
+
+  .productListing ul li:hover {
+    background-color: #006600;
+  }
